@@ -1,0 +1,13 @@
+import express from "express";
+import dontenv from "dotenv";
+import cors from "cors";
+import connectToDB from "./db/db.js";
+import todoRoutes from "./routes/todo.routes.js";
+dontenv.config();
+const server = express();
+connectToDB();
+server.use(express.json());
+server.use(cors({ origin: "*", credentials: true }));
+server.use("/todo", todoRoutes);
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => console.log(`SERVER RUNNING ON PORT ${PORT}`));
